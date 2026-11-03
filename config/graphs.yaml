@@ -1,0 +1,38 @@
+# Grafos (prompt §5.6). Explicados na página /metodologia.
+
+versao: 1
+
+correlacao:
+  # Correlação de Pearson dos log-retornos numa janela móvel de N dias corridos.
+  janela_dias: 90
+  min_obs: 40
+  # Snapshots no último pregão de cada mês, nos últimos N meses (mais o pregão mais recente).
+  meses: 24
+  # Arestas do grafo completo (comunidades e centralidade de autovetor): só ρ acima disto.
+  rho_minimo: 0.3
+  semente_layout: 42
+
+conhecimento:
+  # Acionista entra como nó com ao menos esta participação total (%), controlador ou não;
+  # a aresta é CONTROLA (controlador) ou PARTICIPA.
+  participacao_minima: 5.0
+  # Pessoas: presidentes (diretoria e conselho) e quem aparece em mais de uma empresa do universo.
+  cargos_destaque: ["Diretor Presidente", "Presidente do Conselho"]
+  # Eventos: histórias recentes com score a partir de N viram nós ligados às empresas citadas.
+  score_minimo_evento: 60
+  max_eventos: 40
+  # Coocorrência de empresas na mesma história, com decaimento exponencial (meia-vida em dias).
+  meia_vida_comencao_dias: 7
+
+choque:
+  # Personalized PageRank: probabilidade de voltar à semente a cada passo.
+  alpha: 0.85
+  # Pesos por tipo de ligação no grafo de propagação.
+  pesos:
+    correlacao: 1.0
+    co_mencao: 0.5
+    controle: 0.8
+    participacao: 0.3
+    administra: 0.3
+    setor: 0.4
+  top: 15
