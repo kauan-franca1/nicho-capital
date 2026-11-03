@@ -4,6 +4,8 @@
 #   - "0 15 * * 0,6"   → só heartbeat no fim de semana (Supabase Free pausa após 7 dias sem uso)
 # Às segundas, o run das 09:00 também versiona o snapshot demo/. O commit mantém o repositório
 # ativo, o que evita o GitHub desligar o cron após 60 dias sem atividade. Ver ADR 0003.
+# Desligado por padrão: só roda com a variável de repositório PIPELINE_ENABLED=true (depois de
+# cadastrar os secrets), para não falhar duas vezes por dia num repositório sem banco.
 name: Pipeline
 
 on:
@@ -27,7 +29,7 @@ concurrency:
 
 jobs:
   heartbeat:
-    if: github.event.schedule == '0 15 * * 0,6'
+    if: vars.PIPELINE_ENABLED == 'true' && github.event.schedule == '0 15 * * 0,6'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     defaults:
@@ -44,7 +46,7 @@ jobs:
       - run: uv run nicho heartbeat --gatilho github_actions
 
   run:
-    if: github.event.schedule != '0 15 * * 0,6'
+    if: vars.PIPELINE_ENABLED == 'true' && github.event.schedule != '0 15 * * 0,6'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:

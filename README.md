@@ -113,7 +113,7 @@ Free tiers verificados na documentação oficial em 31/10/2026. Os detalhes e as
 Feito por você, com as suas contas. Nenhuma chave vai para o repositório.
 
 1. **Supabase:** crie um projeto Free e copie a connection string (pooler, porta 6543) como `DATABASE_URL`. Rode `uv run nicho migrate` e `uv run nicho rodar` uma vez a partir da sua máquina.
-2. **GitHub:** em *Settings → Secrets and variables → Actions*, cadastre os secrets `DATABASE_URL`, `GEMINI_API_KEY`, `GROQ_API_KEY` e (opcional) `BRAPI_TOKEN`, e a variável `COLLECTOR_USER_AGENT` (ex.: `NichoCapital/0.1 (+seu-email)`). O workflow [`pipeline.yml`](.github/workflows/pipeline.yml) roda em dias úteis às 09:00 e às 18:30 (Brasília), faz heartbeat no fim de semana e versiona `demo/` às segundas.
+2. **GitHub:** em *Settings → Secrets and variables → Actions*, cadastre os secrets `DATABASE_URL`, `GEMINI_API_KEY`, `GROQ_API_KEY` e (opcional) `BRAPI_TOKEN`, as variáveis `COLLECTOR_USER_AGENT` (ex.: `NichoCapital/0.1 (+seu-email)`) e **`PIPELINE_ENABLED=true`** (sem ela o pipeline agendado fica desligado). O workflow [`pipeline.yml`](.github/workflows/pipeline.yml) roda em dias úteis às 09:00 e às 18:30 (Brasília), faz heartbeat no fim de semana e versiona `demo/` às segundas.
 3. **Vercel:** importe o repositório com **Root Directory = `web`**. As variáveis são `DEMO_MODE=false`, `DATABASE_URL`, `GEMINI_API_KEY` e `GROQ_API_KEY`. Para publicar só o modo demo, basta `DEMO_MODE=true`, sem banco nem chaves.
 
 ## Documentação
