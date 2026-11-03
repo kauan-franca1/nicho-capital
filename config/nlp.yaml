@@ -1,0 +1,58 @@
+# Notícias, documentos da CVM e NLP (prompt §5.1 a §5.4).
+
+versao: 1
+
+coleta:
+  # Janela de notícias a manter na coleta (o RSS só traz os itens recentes de cada feed).
+  dias: 21
+  # Google News: uma busca por empresa (nome + ticker). Sem documentação oficial: usar com parcimônia.
+  google_news_por_empresa: true
+  # GDELT: empresas agrupadas com OR, poucos nomes por consulta.
+  gdelt_empresas_por_consulta: 8
+  resumo_max_caracteres: 600
+
+cvm:
+  # Categorias do IPE tratadas como eventos (valores exatos da coluna Categoria).
+  categorias: ["Fato Relevante", "Comunicado ao Mercado"]
+  dias: 60
+  # Texto do PDF: no máximo N documentos novos por execução, e só o início do texto.
+  max_pdfs_por_execucao: 40
+  max_caracteres_texto: 6000
+  intervalo_download_segundos: 1.0
+
+embeddings:
+  modelo: intfloat/multilingual-e5-small
+  dimensao: 384
+  lote: 32
+
+dedupe:
+  # Cosseno mínimo com a semente da história, em vetores CENTRALIZADOS (menos o vetor médio).
+  # Sem centralizar, o e5 é anisotrópico: dois títulos aleatórios têm cosseno médio 0,87 e um
+  # centroide móvel juntou 517 manchetes sem relação. Centralizado, a média aleatória é 0,0 e
+  # 0,70 agrupa paráfrases do mesmo fato (avaliado em 2.236 notícias reais em 31/10/2026).
+  limiar_cosseno: 0.70
+  # Quando o item cita uma empresa que a história já tem, basta 0,58: o mesmo fato com redações
+  # diferentes fica em 0,62–0,69 (mediana), e assuntos distintos da mesma empresa (PETR4) ficam
+  # abaixo de 0,56 em 97% dos pares.
+  limiar_mesma_empresa: 0.58
+  # Só agrupa itens publicados até N horas depois do primeiro item da história.
+  janela_horas: 72
+
+sentimento:
+  modelo: lucas-leme/FinBERT-PT-BR
+  lote: 16
+
+extracao:
+  prompt_versao: extracao/v1
+  # Só vão para o LLM itens que mencionam uma empresa do universo (economiza cota).
+  max_itens_por_execucao: 120
+  max_caracteres_entrada: 4000
+  temperatura: 0.1
+
+novidade:
+  # Novidade = 1 − maior similaridade com histórias dos N dias anteriores.
+  dias_referencia: 7
+
+event_study:
+  # Histórias que viram evento para estudo: materialidade alta com ticker identificado.
+  materialidade_minima: alta
