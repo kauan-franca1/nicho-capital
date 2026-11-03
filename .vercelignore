@@ -1,0 +1,16 @@
+# Deploy da Vercel: só o site (web/) e o que ele lê na raiz (config/, demo/, docs/).
+/pipeline
+/db
+/scripts
+/.github
+/.claude
+**/node_modules
+**/.next
+**/.venv
+**/.env
+**/.env.*
+!.env.example
+**/__pycache__
+**/.mypy_cache
+**/.ruff_cache
+**/.pytest_cache
