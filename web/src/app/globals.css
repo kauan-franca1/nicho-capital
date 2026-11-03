@@ -1,0 +1,146 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+@layer base {
+  html {
+    background: var(--surface-1);
+  }
+
+  body {
+    background: var(--surface-1);
+    color: var(--text-primary);
+    font-family: var(--font-family-sans);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: var(--disclaimer-height);
+  }
+
+  /* Números sempre tabulares (prompt §3). */
+  .tabular,
+  table,
+  [data-numeric] {
+    font-variant-numeric: tabular-nums;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--color-voltage-blue);
+    color: var(--text-max);
+  }
+
+  a {
+    color: inherit;
+  }
+}
+
+@media print {
+  body {
+    padding-bottom: 0;
+  }
+
+  [data-print="hide"] {
+    display: none !important;
+  }
+}
+
+/* Prosa da /metodologia (HTML gerado a partir de docs/). Só tokens, sem cor literal. */
+@layer components {
+  .prosa {
+    font-size: var(--text-body);
+    line-height: 1.7;
+    color: var(--text-primary);
+  }
+  .prosa > * + * {
+    margin-top: 12px;
+  }
+  .prosa h3 {
+    margin-top: 32px;
+    font-size: var(--text-heading-sm);
+    font-weight: 600;
+  }
+  .prosa h4 {
+    margin-top: 24px;
+    font-size: var(--text-lead);
+    font-weight: 600;
+  }
+  .prosa ul,
+  .prosa ol {
+    padding-left: 20px;
+  }
+  .prosa ul {
+    list-style: disc;
+  }
+  .prosa ol {
+    list-style: decimal;
+  }
+  .prosa li + li {
+    margin-top: 4px;
+  }
+  .prosa li::marker {
+    color: var(--text-muted);
+  }
+  .prosa a {
+    color: var(--link);
+  }
+  .prosa a:hover {
+    text-decoration: underline;
+  }
+  .prosa strong {
+    font-weight: 600;
+  }
+  .prosa code {
+    font-family: var(--font-family-mono);
+    font-size: 0.92em;
+    padding: 1px 4px;
+    border-radius: 4px;
+    background: var(--surface-3);
+  }
+  .prosa pre {
+    overflow-x: auto;
+    padding: 12px;
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    background: var(--surface-2);
+  }
+  .prosa pre code {
+    padding: 0;
+    background: none;
+  }
+  .prosa .tabela {
+    overflow-x: auto;
+  }
+  .prosa table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-data);
+  }
+  .prosa th {
+    text-align: left;
+    font-size: var(--text-label);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+  }
+  .prosa th,
+  .prosa td {
+    padding: 6px 12px 6px 0;
+    border-bottom: 1px solid var(--border-default);
+    vertical-align: top;
+  }
+  .prosa .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 0;
+  }
+  .prosa blockquote {
+    padding-left: 12px;
+    border-left: 2px solid var(--border-strong);
+    color: var(--text-muted);
+  }
+}

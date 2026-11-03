@@ -1,0 +1,24 @@
+# Provedores de LLM em ordem de fallback (prompt §2 e §6).
+# Os números de cota NÃO estão na documentação pública do Gemini nem do Groq
+# (verificado em 31/10/2026: ambos remetem ao painel da conta). Os valores abaixo são
+# conservadores. Confira no Google AI Studio e no console do Groq e ajuste aqui.
+
+versao: 1
+cadeia: [gemini, groq, ollama]
+
+provedores:
+  gemini:
+    env_chave: GEMINI_API_KEY
+    modelo_agente: gemini-2.5-flash
+    modelo_extracao: gemini-2.5-flash-lite
+    cota: {rpm: 5, rpd: 200}
+  groq:
+    env_chave: GROQ_API_KEY
+    modelo_agente: llama-3.3-70b-versatile
+    modelo_extracao: llama-3.1-8b-instant
+    cota: {rpm: 20, rpd: 800}
+  ollama:
+    env_url: OLLAMA_BASE_URL
+    modelo_agente: qwen2.5:7b    # a confirmar na fase 6, conforme a RAM disponível
+    modelo_extracao: qwen2.5:7b
+    cota: {rpm: 0, rpd: 0}       # 0 = sem limite (local)

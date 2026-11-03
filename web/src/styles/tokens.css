@@ -1,0 +1,216 @@
+/*
+ * Nicho Capital — design tokens (ÚNICO arquivo com cores, fontes e medidas; ADR 0004).
+ * Fonte: docs/identidade-visual.md ("Altitude") + extensões em docs/decisoes-de-design.md.
+ * Componentes usam apenas os utilitários gerados pelo @theme abaixo ou var(--...).
+ */
+
+:root {
+  /* --- Cores da identidade ------------------------------------------------ */
+  --color-carbon-canvas: #181818;
+  --color-obsidian: #111111;
+  --color-graphite-card: #1f1f1f;
+  --color-slate-elevated: #262626;
+  --color-iron-peak: #323232;
+  --color-bone: #eeeeee;
+  --color-ash: #e4e4e4;
+  --color-fog: #a4a19b;
+  --color-smoke: #5e5d59;
+  --color-pewter: #4b4b4b;
+  --color-pure-white: #ffffff;
+  --color-voltage-blue: #2b7fff;
+  --color-mid-navy: #1a365d;
+
+  /* --- Extensões aprovadas (decisoes-de-design.md) ------------------------ */
+  --color-voltage-blue-text: #5c9dff; /* C3: links em texto, ≥ 4,5:1 em todas as superfícies */
+  --color-data-up: #7fb89a; /* C1: reforço de alta, só em marcas de dados */
+  --color-data-down: #d98c8c; /* C1: reforço de baixa, só em marcas de dados */
+  --color-data-flat: var(--color-fog);
+
+  /* --- Gráficos (o Lightweight Charts só entende hex/rgba, sem color-mix) -- */
+  --chart-area-top: rgba(238, 238, 238, 0.14);
+  --chart-area-bottom: rgba(238, 238, 238, 0);
+  /* Grafos (C7): 4 níveis de cinza para comunidades e tipos de nó, todos ≥ 3:1 sobre o card
+     (#1f1f1f). Quem distingue de fato é a legenda interativa e a tabela, não o tom. */
+  --viz-cinza-1: #eeeeee;
+  --viz-cinza-2: #c2c0bb;
+  --viz-cinza-3: #a4a19b;
+  --viz-cinza-4: #807e79;
+  --viz-aresta: #4b4b4b;
+  --viz-aresta-forte: #a4a19b;
+  --viz-esmaecido: #323232;
+  /* Intensidade máxima do tom no mapa setorial (C1: só em marcas de dados). */
+  --heatmap-max-mix: 38%;
+
+  /* --- Papéis semânticos (o que os componentes consomem) ------------------ */
+  --surface-0: var(--color-obsidian);
+  --surface-1: var(--color-carbon-canvas);
+  --surface-2: var(--color-graphite-card);
+  --surface-3: var(--color-slate-elevated);
+  --surface-4: var(--color-iron-peak);
+  --text-primary: var(--color-bone);
+  --text-muted: var(--color-fog); /* C4: Smoke não é usado como texto */
+  --text-max: var(--color-pure-white);
+  --border-default: var(--color-slate-elevated);
+  --border-strong: var(--color-pewter);
+  --border-subtle: var(--color-smoke);
+  --focus-ring: var(--color-voltage-blue);
+  --link: var(--color-voltage-blue-text);
+
+  /* --- Tipografia: famílias (as variáveis --font-*-src vêm do next/font) --- */
+  --font-family-serif:
+    var(--font-libre-baskerville-src), Georgia, "Times New Roman", serif; /* C11 */
+  --font-family-sans: var(--font-inter-src), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-family-mono: var(--font-fira-code-src), "JetBrains Mono", Consolas, monospace;
+
+  /* --- Medidas ------------------------------------------------------------ */
+  --page-max-width: 1200px;
+  --section-gap: 80px;
+  --card-padding: 12px;
+  --element-gap: 8px;
+  --nav-height: 64px;
+  --disclaimer-height: 28px;
+
+  /* --- Sombras (só as "whispers"; subtle-4 com coral não é usada — C11) --- */
+  --shadow-card: 0px 2px 15px 0px rgba(51, 51, 51, 0.05), 0px 1px 2px -1px rgba(51, 51, 51, 0.05);
+  --shadow-button:
+    0px 0px 0px 1px oklab(0 0 0 / 0.2), 0px 2px 15px 0px rgba(51, 51, 51, 0.05),
+    0px 1px 2px -1px rgba(51, 51, 51, 0.05);
+  --shadow-overlay:
+    0px 0px 0px 1px oklab(0.999994 0.0000455678 0.0000200868 / 0.1),
+    0px 8px 24px 0px rgba(0, 0, 0, 0.3), 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
+
+  /* --- Movimento ---------------------------------------------------------- */
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  color-scheme: dark; /* C2: somente dark */
+}
+
+/* No celular o disclaimer quebra em duas linhas. */
+@media (max-width: 639px) {
+  :root {
+    --disclaimer-height: 44px;
+  }
+}
+
+/* C1: modo monocromático — a identidade 100% pura (alta/baixa só por sinal, seta e peso). */
+:root[data-palette="mono"] {
+  --color-data-up: var(--color-bone);
+  --color-data-down: var(--color-bone);
+}
+
+/* C2: o único "tema claro" é a impressão (export do briefing). */
+@media print {
+  :root {
+    --surface-0: #ffffff;
+    --surface-1: #ffffff;
+    --surface-2: #ffffff;
+    --surface-3: #f2f2f2;
+    --surface-4: #e6e6e6;
+    --text-primary: #111111;
+    --text-muted: #4b4b4b;
+    --text-max: #000000;
+    --border-default: #cccccc;
+    --border-strong: #888888;
+    --border-subtle: #dddddd;
+    --link: #1a365d;
+    --color-data-up: #111111;
+    --color-data-down: #111111;
+    color-scheme: light;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+  }
+}
+
+/*
+ * Tailwind v4: gera os utilitários a partir dos papéis acima.
+ * As paletas, fontes, raios e sombras padrão do Tailwind são zerados (`initial`):
+ * um `bg-red-500` simplesmente não existe neste projeto.
+ */
+@theme inline {
+  --color-*: initial;
+  --font-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --text-*: initial;
+
+  /* Superfícies e texto (bg-surface-2, text-primary, border-default…) */
+  --color-surface-0: var(--surface-0);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-4: var(--surface-4);
+  --color-primary: var(--text-primary);
+  --color-muted: var(--text-muted);
+  --color-max: var(--text-max);
+  --color-default: var(--border-default);
+  --color-strong: var(--border-strong);
+  --color-subtle: var(--border-subtle);
+  --color-focus: var(--focus-ring);
+  --color-link: var(--link);
+  --color-accent: var(--color-voltage-blue);
+  --color-navy: var(--color-mid-navy);
+  --color-up: var(--color-data-up);
+  --color-down: var(--color-data-down);
+  --color-flat: var(--color-data-flat);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Famílias */
+  --font-serif: var(--font-family-serif);
+  --font-sans: var(--font-family-sans);
+  --font-mono: var(--font-family-mono);
+
+  /* Escala tipográfica da identidade (+ tamanhos de dados ≥ 11 px — C6) */
+  --text-caption: 10px; /* só ticks de eixo */
+  --text-caption--line-height: 1.5;
+  --text-caption--letter-spacing: 0.5px;
+  --text-label: 11px; /* headers de tabela, badges (uppercase +0.05em) */
+  --text-label--line-height: 1.43;
+  --text-label--letter-spacing: 0.05em;
+  --text-small: 12px;
+  --text-small--line-height: 1.5;
+  --text-data: 13px; /* linhas de tabela, navegação */
+  --text-data--line-height: 1.38;
+  --text-body: 14px;
+  --text-body--line-height: 1.5;
+  --text-lead: 16px;
+  --text-lead--line-height: 1.63;
+  --text-heading-sm: 18px;
+  --text-heading-sm--line-height: 1.43;
+  --text-heading-sm--letter-spacing: -0.45px;
+  --text-heading: 28px;
+  --text-heading--line-height: 1.38;
+  --text-heading--letter-spacing: -0.7px;
+  --text-heading-lg: 36px;
+  --text-heading-lg--line-height: 1.15;
+  --text-heading-lg--letter-spacing: -0.9px;
+  --text-section: 48px;
+  --text-section--line-height: 1.15;
+  --text-section--letter-spacing: -1.2px;
+  --text-display: 72px;
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -1.8px;
+
+  /* Espaçamento: 1 unidade = 1 px, então p-12 = 12 px e gap-8 = 8 px (base 4 px da identidade). */
+  --spacing: 1px;
+
+  /* Raios: 4 px (botões, inputs, badges), 8 px (cards), 16 px (superfícies grandes) */
+  --radius-sm: 4px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-2xl: 16px;
+
+  --shadow-card: var(--shadow-card);
+  --shadow-button: var(--shadow-button);
+  --shadow-overlay: var(--shadow-overlay);
+
+  --container-page: var(--page-max-width);
+  --ease-standard: var(--ease-standard);
+}

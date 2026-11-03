@@ -1,0 +1,30 @@
+# Pesos do score de relevância (0–100), prompt §5.7.
+# Score = 100 × Σ peso_i × fator_i, com cada fator normalizado em [0, 1] e Σ pesos = 1.
+# Valores iniciais; serão calibrados na fase 4 e documentados na página /metodologia.
+
+versao: 1
+pesos:
+  materialidade: 0.25          # materialidade do LLM (baixa/média/alta) combinada ao tipo de evento
+  sentimento_intensidade: 0.10
+  fontes_independentes: 0.15
+  reacao_mercado: 0.20         # |retorno anormal| e volume anormal do ticker no dia
+  centralidade_grafo: 0.10
+  novidade: 0.10               # distância do embedding para histórias recentes
+  recencia: 0.10               # decaimento temporal
+
+recencia:
+  meia_vida_horas: 24
+
+materialidade_por_tipo:
+  resultado: 0.8
+  dividendos: 0.6
+  M&A: 1.0
+  guidance: 0.8
+  regulatório: 0.7
+  rating: 0.6
+  troca_de_gestao: 0.7
+  emissao: 0.5
+  recompra: 0.5
+  judicial: 0.6
+  macro: 0.6
+  outro: 0.2

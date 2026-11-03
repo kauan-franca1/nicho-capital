@@ -1,0 +1,57 @@
+{
+  "name": "nicho-capital-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "sync-config": "node scripts/sync-config.mjs",
+    "predev": "npm run sync-config",
+    "dev": "next dev",
+    "prebuild": "npm run sync-config",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "npm run sync-config && next typegen && tsc --noEmit",
+    "pretest": "npm run sync-config",
+    "test": "vitest run",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^4.3.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "graphology": "^0.26.0",
+    "graphology-types": "^0.24.8",
+    "katex": "0.16.22",
+    "lightweight-charts": "^5.2.1",
+    "marked": "15.0.12",
+    "next": "16.4.3",
+    "postgres": "^4.0.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "recharts": "^3.10.1",
+    "sigma": "^3.0.2",
+    "tailwind-merge": "^3.7.0",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@types/node": "^24.19.2",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^6.1.2",
+    "axe-core": "^4.14.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.3",
+    "jsdom": "^30.1.3",
+    "prettier": "^3.9.10",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=20.9"
+  }
+}

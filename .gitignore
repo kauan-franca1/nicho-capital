@@ -1,0 +1,39 @@
+# Segredos (nunca versionar; o .env.example documenta as variáveis)
+.env
+.env.*
+*.pem
+*.key
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Caches locais do pipeline
+.cache/
+pipeline/.cache/
+*.parquet.tmp
+
+# Node / Next.js
+node_modules/
+web/.next/
+web/out/
+web/coverage/
+web/next-env.d.ts
+*.tsbuildinfo
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+
+# Deploy e builds soltos
+.vercel/
+.next/

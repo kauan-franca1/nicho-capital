@@ -1,0 +1,86 @@
+# Universo de ativos do Nicho Capital.
+# Tickers validados em 31/10/2026 contra o Yahoo Finance (sufixo .SA).
+# Mudanças recentes de código: Eletrobras -> AXIA3, Embraer -> EMBJ3, BRF/Marfrig -> MBRF3,
+# CCR -> MOTV3, Copel -> CPLE3. JBS (JBSS3) saiu da B3 e não entra.
+# O CNPJ é resolvido pelo FCA da CVM (Codigo_Negociacao → CNPJ). `cnpj` só aparece aqui quando o
+# FCA traz código inválido (verificado em 31/10/2026: BTG "000000", CSN "4030", Marfrig "ADR";
+# os CNPJs abaixo são os desses mesmos registros do FCA).
+# "apelidos" alimentam a busca de notícias. O casamento diferencia maiúsculas e ignora acentos,
+# então "Vale" e "Localiza" (nomes) não casam com "vale" e "localiza" (palavras comuns).
+
+versao: 1
+indice:
+  ticker: "^BVSP"
+  nome: Ibovespa
+
+ativos:
+  # --- Petróleo, gás e combustíveis ---
+  - {ticker: PETR4, nome: Petrobras, setor: petroleo_gas, apelidos: [Petrobras, PETR4, PETR3]}
+  - {ticker: PETR3, nome: Petrobras ON, setor: petroleo_gas, apelidos: [Petrobras]}
+  - {ticker: PRIO3, nome: PRIO, setor: petroleo_gas, apelidos: [PRIO, PetroRio]}
+  - {ticker: VBBR3, nome: Vibra Energia, setor: petroleo_gas, apelidos: [Vibra Energia, Vibra, VBBR3]}
+  - {ticker: UGPA3, nome: Ultrapar, setor: petroleo_gas, apelidos: [Ultrapar, Ipiranga]}
+  - {ticker: CSAN3, nome: Cosan, setor: petroleo_gas, apelidos: [Cosan]}
+  # --- Mineração e siderurgia ---
+  - {ticker: VALE3, nome: Vale, setor: mineracao_siderurgia, apelidos: [Vale, VALE3]}
+  - {ticker: GGBR4, nome: Gerdau, setor: mineracao_siderurgia, apelidos: [Gerdau]}
+  - {ticker: CSNA3, nome: CSN, setor: mineracao_siderurgia, apelidos: [CSN, Companhia Siderúrgica Nacional], cnpj: "33.042.730/0001-04"}
+  - {ticker: USIM5, nome: Usiminas, setor: mineracao_siderurgia, apelidos: [Usiminas]}
+  # --- Bancos e serviços financeiros ---
+  - {ticker: ITUB4, nome: Itaú Unibanco, setor: financeiro, apelidos: [Itaú Unibanco, Itaú, ITUB4]}
+  - {ticker: BBDC4, nome: Bradesco, setor: financeiro, apelidos: [Bradesco]}
+  - {ticker: BBAS3, nome: Banco do Brasil, setor: financeiro, apelidos: [Banco do Brasil, BBAS3]}
+  - {ticker: SANB11, nome: Santander Brasil, setor: financeiro, apelidos: [Santander Brasil, Santander]}
+  - {ticker: BPAC11, nome: BTG Pactual, setor: financeiro, apelidos: [BTG Pactual, BTG], cnpj: "30.306.294/0001-45"}
+  - {ticker: ITSA4, nome: Itaúsa, setor: financeiro, apelidos: [Itaúsa]}
+  - {ticker: B3SA3, nome: B3, setor: financeiro, apelidos: [B3SA3, "B3 S.A."]}
+  - {ticker: BBSE3, nome: BB Seguridade, setor: financeiro, apelidos: [BB Seguridade]}
+  - {ticker: CXSE3, nome: Caixa Seguridade, setor: financeiro, apelidos: [Caixa Seguridade]}
+  # --- Energia elétrica e saneamento ---
+  - {ticker: AXIA3, nome: Axia Energia (ex-Eletrobras), setor: utilidades, apelidos: [Axia Energia, Eletrobras]}
+  - {ticker: EQTL3, nome: Equatorial, setor: utilidades, apelidos: [Equatorial]}
+  - {ticker: CMIG4, nome: Cemig, setor: utilidades, apelidos: [Cemig]}
+  - {ticker: CPLE3, nome: Copel, setor: utilidades, apelidos: [Copel]}
+  - {ticker: EGIE3, nome: Engie Brasil, setor: utilidades, apelidos: [Engie]}
+  - {ticker: TAEE11, nome: Taesa, setor: utilidades, apelidos: [Taesa]}
+  - {ticker: ENEV3, nome: Eneva, setor: utilidades, apelidos: [Eneva]}
+  - {ticker: SBSP3, nome: Sabesp, setor: utilidades, apelidos: [Sabesp]}
+  # --- Consumo e varejo ---
+  - {ticker: ABEV3, nome: Ambev, setor: consumo, apelidos: [Ambev]}
+  - {ticker: MBRF3, nome: MBRF, setor: consumo, apelidos: [MBRF, BRF, Marfrig], cnpj: "03.853.896/0001-40"}
+  - {ticker: ASAI3, nome: Assaí, setor: consumo, apelidos: [Assaí]}
+  - {ticker: LREN3, nome: Lojas Renner, setor: consumo, apelidos: [Lojas Renner, Renner]}
+  - {ticker: MGLU3, nome: Magazine Luiza, setor: consumo, apelidos: [Magazine Luiza, Magalu]}
+  # --- Saúde ---
+  - {ticker: RADL3, nome: Raia Drogasil, setor: saude, apelidos: [Raia Drogasil, RD Saúde]}
+  - {ticker: RDOR3, nome: Rede D'Or, setor: saude, apelidos: ["Rede D'Or"]}
+  - {ticker: HAPV3, nome: Hapvida, setor: saude, apelidos: [Hapvida]}
+  - {ticker: HYPE3, nome: Hypera, setor: saude, apelidos: [Hypera]}
+  # --- Indústria, papel e celulose ---
+  - {ticker: WEGE3, nome: WEG, setor: industria, apelidos: [WEG, WEGE3]}
+  - {ticker: EMBJ3, nome: Embraer, setor: industria, apelidos: [Embraer]}
+  - {ticker: SUZB3, nome: Suzano, setor: papel_celulose, apelidos: [Suzano]}
+  - {ticker: KLBN11, nome: Klabin, setor: papel_celulose, apelidos: [Klabin]}
+  # --- Transporte, logística e locação ---
+  - {ticker: RENT3, nome: Localiza, setor: transporte_logistica, apelidos: [Localiza]}
+  - {ticker: RAIL3, nome: Rumo, setor: transporte_logistica, apelidos: [Rumo Logística]}
+  - {ticker: MOTV3, nome: Motiva (ex-CCR), setor: transporte_logistica, apelidos: [Motiva, Grupo CCR]}
+  # --- Telecom e tecnologia ---
+  - {ticker: VIVT3, nome: Vivo (Telefônica Brasil), setor: telecom_tecnologia, apelidos: [Telefônica Brasil, Vivo]}
+  - {ticker: TIMS3, nome: TIM, setor: telecom_tecnologia, apelidos: [TIM, TIMS3]}
+  - {ticker: TOTS3, nome: Totvs, setor: telecom_tecnologia, apelidos: [Totvs]}
+  # --- Imobiliário ---
+  - {ticker: CYRE3, nome: Cyrela, setor: imobiliario, apelidos: [Cyrela]}
+
+setores:
+  petroleo_gas: Petróleo, Gás e Combustíveis
+  mineracao_siderurgia: Mineração e Siderurgia
+  financeiro: Financeiro
+  utilidades: Energia Elétrica e Saneamento
+  consumo: Consumo e Varejo
+  saude: Saúde
+  industria: Bens Industriais
+  papel_celulose: Papel e Celulose
+  transporte_logistica: Transporte e Logística
+  telecom_tecnologia: Telecom e Tecnologia
+  imobiliario: Imobiliário

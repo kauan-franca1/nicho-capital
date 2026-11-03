@@ -1,0 +1,31 @@
+# Fontes de notícias. Feeds verificados em 31/10/2026 (HTTP 200 com itens RSS).
+# Regras (prompt §5.1 e §10): só título, link, fonte, data e o resumo que o feed fornece.
+# Nada de texto integral, nada de scraping de paywall, User-Agent identificado.
+
+versao: 1
+user_agent_env: COLLECTOR_USER_AGENT
+
+rss:
+  - {id: infomoney, nome: InfoMoney, url: "https://www.infomoney.com.br/feed/"}
+  - {id: moneytimes, nome: Money Times, url: "https://www.moneytimes.com.br/feed/"}
+  - {id: exame, nome: Exame, url: "https://exame.com/feed/"}
+  - {id: seudinheiro, nome: Seu Dinheiro, url: "https://www.seudinheiro.com/feed/"}
+  - {id: braziljournal, nome: Brazil Journal, url: "https://braziljournal.com/feed/"}
+  - {id: einvestidor, nome: E-Investidor (Estadão), url: "https://einvestidor.estadao.com.br/feed/"}
+  - {id: agenciabrasil_economia, nome: Agência Brasil — Economia, url: "https://agenciabrasil.ebc.com.br/rss/economia/feed.xml"}
+  # Valor tem paywall: entram só metadados e o resumo do feed.
+  - {id: valor, nome: Valor Econômico, url: "https://valor.globo.com/rss/valor"}
+
+google_news:
+  # Sem documentação oficial nem SLA. Usar com cache e baixa frequência.
+  url_template: "https://news.google.com/rss/search?q={query}&hl=pt-BR&gl=BR&ceid=BR:pt-419"
+  min_intervalo_segundos: 3
+
+gdelt:
+  # DOC 2.0 API. Janela rolante de 3 meses; a própria API pede 1 requisição a cada 5 s.
+  url: "https://api.gdeltproject.org/api/v2/doc/doc"
+  mode: artlist
+  format: json
+  maxrecords: 75
+  query_sufixo: "sourcecountry:brazil"
+  min_intervalo_segundos: 5

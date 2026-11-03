@@ -1,0 +1,21 @@
+# Postgres + pgvector local para desenvolvimento do pipeline (opcional; ver ADR 0001).
+# Nome de projeto fixo: o volume não muda se a pasta do repositório for renomeada.
+name: nicho-capital
+
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: nicho
+      POSTGRES_PASSWORD: nicho
+      POSTGRES_DB: nicho
+    ports:
+      - "54329:5432"
+    volumes:
+      - nicho-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nicho -d nicho"]
+      interval: 5s
+      retries: 10
+volumes:
+  nicho-db:
