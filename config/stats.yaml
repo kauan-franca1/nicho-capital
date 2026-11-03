@@ -1,0 +1,43 @@
+# Parâmetros estatísticos (prompt §5.5). Explicados na página /metodologia.
+
+versao: 1
+
+anomalias:
+  # z-score robusto: (x_t − mediana) / (1,4826 × MAD), com mediana e MAD das `janela` observações
+  # ANTERIORES a t (sem look-ahead).
+  janela: 60
+  min_obs: 40
+  # |z| a partir do qual a observação vira anomalia, por severidade.
+  limiares: {baixa: 3.0, media: 4.5, alta: 6.0}
+  # Volume: só interessa volume anormalmente ALTO (log do volume).
+  volume_so_alta: true
+  # Quantos pregões recentes gravar (o histórico inteiro serve de janela).
+  pregoes_recentes: 252
+
+change_points:
+  # PELT (ruptures) com custo "normal" (média e variância) sobre os log-retornos.
+  # Penalidade = fator × log(n), estilo BIC. O custo normal é uma verossimilhança gaussiana e não
+  # depende da escala da série, então a penalidade também não. Detecção retrospectiva.
+  penalidade_fator: 3.0
+  tamanho_minimo: 20
+  # Candidatos a ruptura a cada `salto` pregões. 1 é exato mas ~5x mais lento; 5 é o padrão do
+  # ruptures e dá precisão de ±5 pregões, suficiente para uma mudança de regime de volatilidade.
+  salto: 5
+  # Razão de volatilidade (depois/antes) que define a severidade.
+  limiares_razao: {baixa: 1.5, media: 2.0, alta: 3.0}
+
+garch:
+  # GARCH(1,1) com média constante e inovações t de Student (caudas pesadas).
+  pregoes: 750
+  distribuicao: t
+  horizonte_previsao: 5
+
+event_study:
+  # Modelo de mercado estimado por OLS em [−250, −11] pregões antes do evento.
+  estimacao: [-250, -11]
+  min_obs_estimacao: 120
+  janelas: [[-1, 1], [0, 5]]
+  nivel_confianca: 0.95
+  # Eventos de mercado: dias em que o próprio Ibovespa teve anomalia de retorno desta severidade.
+  # A seleção é pelo índice, então o AR de cada ação mede a reação além do mercado (não é circular).
+  choque_mercado_severidade: alta
